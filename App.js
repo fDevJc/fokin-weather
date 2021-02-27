@@ -4,7 +4,7 @@ import Loading from './Loading';
 import * as Location from 'expo-location';
 import axios from 'axios';
 import Weather from './Weather';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 const API_KEY = '00bd59e973f92b638eda26b2aa152fce';
 
