@@ -1,25 +1,37 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, StatusBar } from 'react-native';
 import PropTypes from 'prop-types';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+
+const weatherOptions = {
+  Clear: {
+    iconName: 'weather-cloudy',
+    gradient: ['red', 'blue'],
+  },
+};
 
 export default function Weather({ temp, condition }) {
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      colors={weatherOptions[condition].gradient}
+      style={styles.container}
+    >
+      <StatusBar barStyle="light-content" />
       <View style={styles.halfContainer}>
         <MaterialCommunityIcons
-          name="weather-cloudy"
+          name={weatherOptions[condition].iconName}
           size={100}
-          color="black"
+          color="white"
         />
         <Text>{condition}</Text>
-        <Text style={styles.temp}>{temp}</Text>
+        <Text style={styles.temperature}>{temp}°</Text>
       </View>
       <View style={styles.halfContainer}></View>
-    </View>
+    </LinearGradient>
   );
 }
-
+/*
 Weather.propTypes = {
   temp: PropTypes.number.isRequired,
   condition: PropTypes.oneOf([
@@ -30,9 +42,10 @@ Weather.propTypes = {
     'Atmosphere',
     'Clear',
     'Clouds',
+    'Clear',
   ]),
 };
-
+*/
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -44,7 +57,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  temp: {
+  temperature: {
     fontSize: 35,
+    color: 'white',
+  },
+  background: {
+    position: 'absolute',
   },
 });
