@@ -7,6 +7,7 @@ expo
 expo-location(위치정보 모듈)
 axios
 prop-types
+expo-linear-gradient
 
 #Use Command
 expo project
@@ -28,6 +29,10 @@ axios
 prop-types
 
 > npm i prop-types
+
+expo-linear-gradient
+
+> expo install expo-linear-gradient
 
 #Use API
 Weather API 날씨정보 : https://openweathermap.org/

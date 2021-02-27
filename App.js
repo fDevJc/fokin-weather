@@ -4,6 +4,7 @@ import Loading from './Loading';
 import * as Location from 'expo-location';
 import axios from 'axios';
 import Weather from './Weather';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const API_KEY = '00bd59e973f92b638eda26b2aa152fce';
 
@@ -12,11 +13,20 @@ export default class App extends React.Component {
     isLoading: true,
   };
   getWeather = async (latitude, longitude) => {
-    const { data } = await axios.get(
+    const {
+      data: {
+        main: { temp },
+        weather,
+      },
+    } = await axios.get(
       `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
     );
-    console.log(data);
-    this.setState({ isLoading: false, temp: data.main.temp });
+    //console.log(data);
+    this.setState({
+      isLoading: false,
+      temp,
+      condition: weather[0].main,
+    });
   };
   getLocation = async () => {
     try {
@@ -37,7 +47,11 @@ export default class App extends React.Component {
     this.getLocation();
   }
   render() {
-    const { isLoading, temp } = this.state;
-    return isLoading ? <Loading /> : <Weather temp={Math.round(temp)} />;
+    const { isLoading, temp, condition } = this.state;
+    return isLoading ? (
+      <Loading />
+    ) : (
+      <Weather temp={Math.round(temp)} condition={condition} />
+    );
   }
 }
